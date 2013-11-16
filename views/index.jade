@@ -1,5 +1,62 @@
-doctype5
-head
-  title Deck Base
-body
-  h1 Deck Base
+!!!
+
+mixin stylesheet(url)
+  link(rel="stylesheet", media="screen", href=url)
+
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    meta(name="viewport", content="width=1024, user-scalable=no")
+    title deck-base presentation
+    +stylesheet("deck.js/core/deck.core.css")
+    each name in ["goto", "menu", "navigation", "status", "hash", "scale"]
+      link(rel="stylesheet", 
+           media="screen", 
+           href="deck.js/extensions/#{name}/deck.#{name}.css")
+    +stylesheet("deck.js/themes/style/swiss.css")
+    +stylesheet("deck.js/themes/transition/horizontal-slide.css")
+    link(rel="stylesheet" media="print" href="deck.js/core/print.css")
+    script(src="deck.js/modernizr.custom.js")
+  body
+    .deck-container
+      section.slide#welcome
+        h1 Welcome to base-deck
+       
+      section.slide#todo
+        h2 Still to-do
+        ul
+          li.slide#todo-cm CodeMirror
+          li.slide#todo-snipped Load code snippets
+          li.slide#todo-split Split layout and slides
+          li.slide#todo-conf Extra configuration for extensions and themes, etc. 
+
+      section.slide#end
+        h1 That's All ... For Now!
+
+      // After slides comes the navigation snippets.
+
+      a.deck-prev-link(href="#", title="Previous") &#8592;
+      a.deck-next-link(href="#", title="Next") &#8594;
+
+      p.deck-status
+          span.deck-status-current
+          |  /  
+          span.deck-status-total
+
+      form.goto-form(action="." method="get")
+        label(for="goto-slide") Got to slide:
+        input#goto-slide(type="text", name="slidenum", list="goto-datalist")
+        datalist#goto-datalist
+        input(type="submit" value="Go")
+
+      a.deck-permalink(href=".", title="Permalink to this slide")
+
+  script(src="deck.js/jquery.min.js")
+  script(src="deck.js/core/deck.core.js")
+
+  each name in ["hash", "menu", "goto", "status", "navigation", "scale"]
+    script(src="deck.js/extensions/#{name}/deck.#{name}.js")
+
+  script.
+    $(function() { $.deck(".slide"); });
