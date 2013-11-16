@@ -20,19 +20,8 @@ html
     script(src="deck.js/modernizr.custom.js")
   body
     .deck-container
-      section.slide#welcome
-        h1 Welcome to base-deck
-       
-      section.slide#todo
-        h2 Still to-do
-        ul
-          li.slide#todo-cm CodeMirror
-          li.slide#todo-snipped Load code snippets
-          li.slide#todo-split Split layout and slides
-          li.slide#todo-conf Extra configuration for extensions and themes, etc. 
 
-      section.slide#end
-        h1 That's All ... For Now!
+      != slides
 
       // After slides comes the navigation snippets.
 
@@ -45,7 +34,7 @@ html
           span.deck-status-total
 
       form.goto-form(action="." method="get")
-        label(for="goto-slide") Got to slide:
+        label(for="goto-slide") Go to slide:
         input#goto-slide(type="text", name="slidenum", list="goto-datalist")
         datalist#goto-datalist
         input(type="submit" value="Go")

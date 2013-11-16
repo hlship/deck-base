@@ -9,6 +9,7 @@
 port = 8888
 
 express = require "express"
+open = require "open"
 
 app = express()
 
@@ -25,20 +26,28 @@ app.use app.router
 app.use express.static "public"
 app.use express.directory "public"
 
-
 app.use (err, req, res, next) ->
+
+  console.log err
+
   console.error 500, "There was a server-side failure."
 
   res.send 500, "There was a server-side failure."
 
-
 app.get "/", (req, res) ->
-  res.render "index"
+
+   res.render "slides", (err, html) ->
+
+      throw err if err
+
+      res.render "deck-wrapper", slides: html
 
 app.listen port
 
 console.log "Express listening on port #{port}"
 
+# Occasional problems with Chrome, so prefer FireFox
+open "http://localhost:#{port}", "firefox"
 
 
 
